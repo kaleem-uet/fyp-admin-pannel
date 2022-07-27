@@ -8,13 +8,15 @@ require('top.inc.php');
                      <div class="card">
                         <div class="card-header"><strong>Add_Volunteer</strong></div>
                         <div class="card-body card-block">
-                           <div class="form-group"><label for="company" class=" form-control-label">Company</label><input type="text" id="company" placeholder="Enter your company name" class="form-control"></div>
-                           <div class="form-group"><label for="vat" class=" form-control-label">VAT</label><input type="text" id="vat" placeholder="DE1234567890" class="form-control"></div>
-                           <div class="form-group"><label for="street" class=" form-control-label">Street</label><input type="text" id="street" placeholder="Enter street name" class="form-control"></div>
-                           <div class="form-group"><label for="country" class=" form-control-label">Country</label><input type="text" id="country" placeholder="Country name" class="form-control"></div>
-                           <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
+                        <form action="insert_volunteer.php" method="POST">
+                           <div class="form-group"><label for="full_name" class=" form-control-label">Full Name</label><input name="full_name" type="text" id="full_name" placeholder="Enter your name" class="form-control" required></div>
+                           <div class="form-group"><label for="cnic" class=" form-control-label">CNIC</label><input name="cnic" type="text" id="cnic" placeholder="Enter your cnic" class="form-control" required></div>
+                           <div class="form-group"><label for="gender" class=" form-control-label">Gender</label><input name="gender" type="text" id="gender" placeholder="Enter gender name" class="form-control" required></div>
+                           <div class="form-group"><label for="address" class=" form-control-label">Address</label><input name="address" type="text" id="address" placeholder="Address name" class="form-control" required></div>
+                           <button id="payment-button" type="submit"  name="submit" class="btn btn-lg btn-info btn-block">
                            <span id="payment-button-amount">Submit</span>
                            </button>
+                           </form>
                         </div>
                      </div>
                   </div>

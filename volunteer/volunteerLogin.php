@@ -4,12 +4,12 @@ session_start();
  
 // Check if the user is already logged in, if yes then redirect him to index page
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: index.php");
+    header("location: volunteer.php");
     exit;
 }
  
 // Include config file
-require_once "database.php";
+require_once "../database.php";
  
 // Define variables and initialize with empty values
 $username = $password = "";
@@ -19,10 +19,10 @@ $username_err = $password_err = $login_err = "";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
     // Check if username is empty
-    if(empty(trim($_POST["username"]))){
-        $username_err = "Please enter username.";
+    if(empty(trim($_POST["email"]))){
+        $username_err = "Please enter email.";
     } else{
-        $username = trim($_POST["username"]);
+        $username = trim($_POST["email"]);
     }
     
     // Check if password is empty
@@ -35,7 +35,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate credentials
     if(empty($username_err) && empty($password_err)){
         // Prepare a select statement
-        $sql = "SELECT id, username, password FROM staff WHERE username = ?";
+        $sql = "SELECT id, email, password FROM staff WHERE email = ?";
         
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -61,18 +61,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             // Store data in session variables
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
-                            $_SESSION["username"] = $username;                            
+                            $_SESSION["email"] = $username;                            
                             
                             // Redirect user to index page
-                            header("location: index.php");
+                            header("location: volunteer.php");
                         } else{
                             // Password is not valid, display a generic error message
-                            $login_err = "Invalid username or password.";
+                            $login_err = "Invalid email or password.";
                         }
                     }
                 } else{
                     // Username doesn't exist, display a generic error message
-                    $login_err = "Invalid username or password.";
+                    $login_err = "Invalid email or password.";
                 }
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
@@ -100,40 +100,46 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }        
         ?>
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" href="assets/css/normalize.css">
-      <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-      <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-      <link rel="stylesheet" href="assets/css/themify-icons.css">
-      <link rel="stylesheet" href="assets/css/pe-icon-7-filled.css">
-      <link rel="stylesheet" href="assets/css/flag-icon.min.css">
-      <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
-      <link rel="stylesheet" href="assets/css/style.css">
+      <!-- <link rel="stylesheet" href="assets/css/normalize.css"> -->
+      <link rel="stylesheet" href="../assets/css/normalize.css">
+
+      <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
+      <link rel="stylesheet" href="../assets/css/themify-icons.css">
+      <link rel="stylesheet" href="../assets/css/pe-icon-7-filled.css">
+      <link rel="stylesheet" href="../assets/css/flag-icon.min.css">
+      <link rel="stylesheet" href="../assets/css/cs-skin-elastic.css">
+      <link rel="stylesheet" href="../assets/css/style.css">
       <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
    </head>
    <body class="bg-dark">
       <div class="sufee-login d-flex align-content-center flex-wrap">
-         <div class="container">
+          <div class="container">
             <div class="login-content">
-               <div class="login-form mt-150">
+               <div class="login-form mt-150">    
                   <form method="post">
                      <div class="form-group">
-                        <label>Username</label>
-                        <input type="text" name="username" class="form-control 
+                        <label>Full Name</label>
+                        <input type="text" name="email" class="form-control
                         <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>
-                         " placeholder="Username" required>
+                         "
+                         placeholder="email" required>
                          <span class="invalid-feedback"><?php echo $username_err; ?></span>
                      </div>
                      <div class="form-group">
                         <label>Password</label>
                         <input type="password" name="password" class="form-control
-                        <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" placeholder="Password" required>
+                        <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>"
+                        placeholder="password" required>
                         <span class="invalid-feedback"><?php echo $password_err; ?></span>
                      </div>
+                     
                      <button type="submit" name="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Sign in</button>
-					</form>
+                  </form>
 					<div class="field_error"></div>
                </div>
             </div>
+            
          </div>
       </div>
       <script src="assets/js/vendor/jquery-2.1.4.min.js" type="text/javascript"></script>

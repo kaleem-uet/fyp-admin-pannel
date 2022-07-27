@@ -1,8 +1,11 @@
 <?php
 require('top.inc.php');
-
-
 ?>
+<?php
+   
+   require_once ('database.php');
+		   $con=  mysqli_query($link, "select * from contact_us");
+	  ?>
 <div class="content pb-0">
 	<div class="orders">
 	   <div class="row">
@@ -18,29 +21,40 @@ require('top.inc.php');
 							<tr>
 							   <th class="serial">#</th>
 							   <th>ID</th>
-							   <th>Name</th>
+							   <th>Full Name</th>
 							   <th>Email</th>
-							   <th>Mobile</th>
-							   <th>Query</th>
-							   <th>Date</th>
-							   <th>Replay</th>
+							   <th>Address</th>
+							   <th>Comments</th>
+							   <th></th>
+							   <!-- <th>Date</th> -->
+							   <!-- <th>Replay</th> -->
 							</tr>
 						 </thead>
 						 <tbody>
 						 <tr class="">
+							              <?php
+
+                                              while($row=  mysqli_fetch_array($con))
+                                              {
+                                            ?>
 											<td>1</td>
-											<td>id</td>
-											<td>abc</td>
-											<td>abc@gmail.com</td>
-											<td>03181932559</td>
-											<td>text</td>
-											<td>12-27-2021</td>
+											<td><?php echo $row['id']; ?></td>
+											<td><?php echo $row['full_name']; ?></td>
+											<td><?php echo $row['email']; ?></td>
+											<td><?php echo $row['address']; ?></td>
+											<td><?php echo $row['comments']; ?></td>
+											<!-- <td>12-27-2021</td> -->
 											<td>
-												<button type="button" class="btn  btn-success">Active</button>
-												<button type="button" class="btn btn-danger">Deactive</button>
+												<!-- <button type="button" class="btn  btn-success">Active</button>
+												<button type="button" class="btn btn-danger">Deactive</button> -->
+												<a href="delete-contactus.php?id=<?php echo $row["id"]; ?>">
+												  <button type="button" class="btn btn-danger">Delete</button>
+											  </a>
 											</td>
 
 										</tr>
+										<?php
+											  }?>
 						 </tbody>
 					  </table>
 				   </div>

@@ -1,5 +1,7 @@
 <?php
 require('top.inc.php');
+require_once ('database.php');
+            $con=  mysqli_query($link, "select * from staff");
 ?>
 <div class="content pb-0">
     <div class="orders">
@@ -20,28 +22,44 @@ require('top.inc.php');
                             <table class="table ">
                                 <thead>
                                     <tr>
+                                        
                                         <th class="serial">#</th>
                                         <th>ID</th>
-                                        <th>Name</th>
+                                        <th>Full Name</th>
                                         <th>Email</th>
-                                        <th>Mobile</th>
-                                        <th>Status</th>
+                                        <th>Password</th>
+                                        <th></th>
+                                        <!-- <th>Status</th> -->
                                     </tr>
+                                
+
                                 </thead>
                                 <tbody>
                                 <tr class="">
+                                    <?php
+
+                                              while($row=  mysqli_fetch_array($con))
+                                              {
+                                            ?>
 											<td>1</td>
-											<td>id</td>
-											<td>abc</td>
-											<td>abc@gmail.com</td>
-											<td>03181932559</td>
+											<td><?php echo $row['id']; ?></td>
+											<td><?php echo $row['username']; ?></td>
+											<td><?php echo $row['email']; ?></td>
+											<td><?php echo $row['password']; ?></td>
 										
 											<td>
-												<button type="button" class="btn  btn-success">Active</button>
-												<button type="button" class="btn btn-danger">Deactive</button>
+												<!-- <button type="button" class="btn  btn-success">Active</button>
+												<button type="button" class="btn btn-danger">Deactive</button> -->
+                                                <a href="delete-admin.php?id=<?php echo $row["id"]; ?>">
+                                                   <button type="button" class="btn btn-danger">Delete</button>
+                                                </a>
+                                                
 											</td>
-
 										</tr>
+                                        <?php
+											  }
+											  ?>
+                                    
                                 </tbody>
                             </table>
                         </div>
