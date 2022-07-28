@@ -119,10 +119,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                <div class="login-form mt-150">    
                   <form method="post">
                      <div class="form-group">
-                        <label>Full Name</label>
+                        <label>Email</label>
                         <input type="text" name="email" class="form-control
-                        <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>
-                         "
+                        <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" 
                          placeholder="email" required>
                          <span class="invalid-feedback"><?php echo $username_err; ?></span>
                      </div>

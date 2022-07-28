@@ -18,11 +18,11 @@ $username_err = $password_err = $login_err = "";
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
-    // Check if username is empty
-    if(empty(trim($_POST["username"]))){
-        $username_err = "Please enter username.";
+    // Check if email is empty
+    if(empty(trim($_POST["email"]))){
+        $username_err = "Please enter email.";
     } else{
-        $username = trim($_POST["username"]);
+        $username = trim($_POST["email"]);
     }
     
     // Check if password is empty
@@ -35,7 +35,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate credentials
     if(empty($username_err) && empty($password_err)){
         // Prepare a select statement
-        $sql = "SELECT id, username, password FROM staff WHERE username = ?";
+        $sql = "SELECT id, email, password FROM staff WHERE email = ?";
         
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -61,18 +61,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             // Store data in session variables
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
-                            $_SESSION["username"] = $username;                            
+                            $_SESSION["email"] = $username;                            
                             
                             // Redirect user to index page
                             header("location: index.php");
                         } else{
                             // Password is not valid, display a generic error message
-                            $login_err = "Invalid username or password.";
+                            $login_err = "Invalid email or password.";
                         }
                     }
                 } else{
                     // Username doesn't exist, display a generic error message
-                    $login_err = "Invalid username or password.";
+                    $login_err = "Invalid email or password.";
                 }
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
@@ -117,10 +117,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                <div class="login-form mt-150">
                   <form method="post">
                      <div class="form-group">
-                        <label>Username</label>
-                        <input type="text" name="username" class="form-control 
-                        <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>
-                         " placeholder="Username" required>
+                        <label>Email</label>
+                        <input type="text" name="email" class="form-control 
+                        <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" 
+                         placeholder="email" required>
                          <span class="invalid-feedback"><?php echo $username_err; ?></span>
                      </div>
                      <div class="form-group">

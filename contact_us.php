@@ -2,7 +2,13 @@
 require('top.inc.php');
 ?>
 <?php
-   
+   session_start();
+ 
+   // Check if the user is logged in, if not then redirect him to login page
+   if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+	   header("location: login.php");
+	   exit;
+   }
    require_once ('database.php');
 		   $con=  mysqli_query($link, "select * from contact_us");
 	  ?>
@@ -19,7 +25,7 @@ require('top.inc.php');
 					  <table class="table ">
 						 <thead>
 							<tr>
-							   <th class="serial">#</th>
+							   <!-- <th class="serial">#</th> -->
 							   <th>ID</th>
 							   <th>Full Name</th>
 							   <th>Email</th>
@@ -37,7 +43,7 @@ require('top.inc.php');
                                               while($row=  mysqli_fetch_array($con))
                                               {
                                             ?>
-											<td>1</td>
+											<!-- <td>1</td> -->
 											<td><?php echo $row['id']; ?></td>
 											<td><?php echo $row['full_name']; ?></td>
 											<td><?php echo $row['email']; ?></td>

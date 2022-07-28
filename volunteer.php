@@ -2,6 +2,13 @@
 require('top.inc.php');
 ?>
 <?php
+session_start();
+ 
+   // Check if the user is logged in, if not then redirect him to login page
+   if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+	   header("location: login.php");
+	   exit;
+   }
        	require_once ('database.php');
 
             $con=  mysqli_query($link, "select * from volunteer");
@@ -27,7 +34,7 @@ require('top.inc.php');
                    <table class="table ">
                            <thead>
                                <tr>
-                                   <th class="serial">#</th>
+                                 
                                    <th>ID</th>
                                    <th>Full_Name</th>
                                    <th>CNIC</th>
@@ -44,7 +51,7 @@ require('top.inc.php');
                                  while($row=  mysqli_fetch_array($con))
                                    {
                                        ?>
-                               <td>1</td>
+                             
                                		<td><?php echo $row['id']; ?></td>
                                		<td><?php echo $row['full_name']; ?></td>
                                		<td><?php echo $row['cnic']; ?></td>
